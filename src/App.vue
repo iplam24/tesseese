@@ -52,7 +52,7 @@ const handleSearch = async () => {
   loading.value = true;
 
   try {
-    const response = await axios.post('https://tracuudiemnb.ninhbinh.edu.vn/api/search', {
+    const response = await axios.post('/api/search', {
       so_bao_danh: sbd.value.trim()
     });
 
