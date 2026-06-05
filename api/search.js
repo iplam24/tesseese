@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   // Add CORS headers so frontend can call it if needed, though on Vercel it's same-origin
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,6 +39,11 @@ export default async function handler(req, res) {
     return res.status(200).json(data);
   } catch (error) {
     console.error('Fetch error:', error);
-    return res.status(502).json({ error: 'Không thể kết nối đến máy chủ tra cứu điểm.' });
+    return res.status(502).json({ 
+      error: 'Không thể kết nối đến máy chủ tra cứu điểm.',
+      details: error.message,
+      stack: error.stack,
+      cause: error.cause ? error.cause.message : null
+    });
   }
 }
